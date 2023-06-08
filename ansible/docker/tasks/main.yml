@@ -1,0 +1,10 @@
+---
+#- name: Deactivate ipv6 support
+#  include_tasks:
+#    file: sysctlipv6.yml
+#- name: Install Docker
+#  include_tasks:
+#    file: docker.yml
+- name: install postgresql
+  include_tasks:
+    file: postgresql.yml

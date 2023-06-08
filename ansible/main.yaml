@@ -1,0 +1,5 @@
+---
+- name: insta docker postgresq
+  hosts: hosts
+  roles:
+    - docker

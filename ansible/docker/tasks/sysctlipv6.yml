@@ -1,0 +1,8 @@
+---
+- name: set sysctl to disable ipv6
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: yes
+  with_dict: "{{ sysctl }}"

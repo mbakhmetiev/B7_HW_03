@@ -1,0 +1,39 @@
+---
+- name: Install packages
+  apt:
+    pkg:
+      - postgresql
+      - postgresql-contrib
+    state: latest
+    update_cache: true
+
+- name: "Start and enable services"
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Create app database
+  postgresql_db:
+    state: present
+    name: "{{ db_name }}"
+    become: yes
+    become_user: postgres
+
+- name: Create db user
+  postgresql_user:
+    state: present
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    become: yes
+    become_user: postgres
+
+- name: Grant db user access to app db
+  postgresql_privs:
+    type: database
+    database: "{{ db_name }}"
+    roles: "{{ db_user }}"
+    grant_option: no
+    privs: all
+    become: yes
+    become_user: postgres
